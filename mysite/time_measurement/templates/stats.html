@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Zawody</title>
+    </head>
+    <body>
+        <table style="width:100%;">
+            <tr>
+                <td>Tor</td>
+                <td>Zawodnik</td>
+                <td>Czas startu</td>
+                <td>Czas zatrzymania</td>
+                <td>Pomiar</td>
+                 <td>Czas uzyskany</td>
+            </tr>
+
+
+        {% for stat in stats %}
+            <tr>
+                <td>{{ stat.swimming_track }}</td>
+                <td>{{ stat.contestant.name }} {{ stat.contestant.surname }}</td>
+                <td>{{ stat.time_start|date:"d-m-Y H:i:s,u"|slice:":-4" }}</td>
+                <td>
+                    {% if stat.time_stop is None %}
+                        Trwa pomiar
+                    {% else %}
+                        {{ stat.time_stop|date:"d-m-Y H:i:s,u"|slice:":-4" }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if stat.time_stop is None %}
+                        <span style="color: red">
+                        {{ stat.actual_time }}
+                        </span>
+                    {% else %}
+                        Pomiar zakończony
+                    {% endif %}
+                </td>
+                 <td>
+                    {% if stat.time_stop is not None %}
+                        {{ stat.actual_time }}
+                    {% else %}
+                        Brak danych
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </body>
+</html>

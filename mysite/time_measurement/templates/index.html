@@ -1,0 +1,28 @@
+<html>
+    <head><title>Zawody</title></head>
+    <body>
+        <header><h1>Zawody pływackie</h1></header>
+        <br>
+        <form method ='POST' class="PolTekstowe">{% csrf_token %} <!-- csrf_token względy bezpieczeństwa-->
+       {{ form.as_p }}  <!-- sposób wyświetlania pola tekstowego -->
+        <button type="submit" class="save btn btn-link">Save</button>
+        </form>
+
+        <br>
+
+        {% for numer, tor in tory.items %}
+        <main>
+            <p>Tor {{numer}}:
+                {% if tor %}
+                    {{tor.contestant.name}} {{tor.contestant.surname}} {{tor.actual_time}}
+                {%endif%}</p>
+
+        {% endfor %}
+
+        <br>
+            <p> <a href="{% url 'stats' %}"> Statystyki </a></p>
+        </main>
+
+
+    </body>
+</html>
